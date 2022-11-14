@@ -19,7 +19,7 @@
     justify-content: center;
     align-items: center;
     width: 600px;
-    height: 200px;
+    min-height: 200px;
     background-color: #422a76;
     border-radius: 25px;
     box-shadow: 0px 0px 50px 2px rgba(0, 0, 0, 0.4);
@@ -39,12 +39,19 @@
     border-radius: 50%;
 }
 
-.content-profile > div{
+/* .content-profile > div{
     margin: 2rem 0;
+} */
+
+.content-profile {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 .content-profile .name{
     color: white;
+    font-weight: bold;
 }
 
 .content-profile .bio, .content-profile .recounts{
@@ -54,11 +61,25 @@
 .recounts{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    gap: 1rem;
+    justify-content: center;
+    gap: 3.5rem;
+}
+
+.recounts div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .content-profile a {
     text-decoration: none;
     color: #D0D1DB;
+    transition: color 0.5s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem
+}
+
+.content-profile a:hover {
+    color: #1d9bf0;
 }
