@@ -36,26 +36,26 @@ function App() {
           />) : 
           (<>
             <div className="photo-profile">
-              <img src={user?.avatar_url} alt="profile" />
+              <img src={user.avatar_url} alt="profile" />
             </div>
             <div className="content-profile">
-                <div className="name">{user?.name}</div>
-                <div className="bio">{user?.bio}</div>
+                <div className="name">{user.name}</div>
+                <div className="bio">{user.bio}</div>
                 <div className="recounts">
                     <div className="followers">
                         <MdPeopleAlt />
-                        {user?.followers}
+                        {user.followers}
                     </div>
                     <div className="repos">
                         <RiGitRepositoryFill />
-                        {user?.public_repos}
+                        {user.public_repos}
                     </div>
-                    {(user?.twitter_username) && (
+                    {(user.twitter_username) && (
                         <div className="twitter">
                             <a target="__blank"
-                                href={'https://twitter.com/' + user?.twitter_username}>
+                                href={'https://twitter.com/' + user.twitter_username}>
                                 <BsTwitter />
-                                {user?.twitter_username}
+                                {user.twitter_username}
                             </a>
                         </div>
                     )}
