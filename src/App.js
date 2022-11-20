@@ -30,9 +30,11 @@ function App() {
         if (text.length > 2 && typeof text === 'string') {
             const responseData = await fetch(`https://api.github.com/search/users?q=${text}`)
                 .then(response => response.json())
+
             const githubUsers = responseData.items.map((githubUser) => {
                 return { value: githubUser.login, label: githubUser.login }
             })
+            
             setListUsers(githubUsers)
         } else {
             setListUsers([])
