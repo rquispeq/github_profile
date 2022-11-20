@@ -27,12 +27,9 @@ function App() {
 
 
     const searchUser = async (text) => {
-        // console.log('texto busqueda',text)
         if (text.length > 2 && typeof text === 'string') {
             const responseData = await fetch(`https://api.github.com/search/users?q=${text}`)
                 .then(response => response.json())
-            // .then(data => setListUsers(data.items));
-            // return data
             const githubUsers = responseData.items.map((githubUser) => {
                 return { value: githubUser.login, label: githubUser.login }
             })
