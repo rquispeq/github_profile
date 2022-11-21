@@ -12,29 +12,30 @@ function App() {
     const [user, setUser] = useState({});
     const [listUsers, setListUsers] = useState([]);
     const [search, setSearch] = useState('');
+    let timeout = 0;
 
     const getUser = async () => {
-        const data = await fetch('https://api.github.com/users/sammwyy')
+        const data = await fetch('https://api.github.com/users/rquispeq')
             .then(response => response.json());
         setUser(data)
     }
 
     const handleSearch = (text) => {
         if (typeof text === 'string' && text.length > 2) {
-            setSearch(text)
+            if ( timeout )  clearTimeout(timeout);
+            timeout = setTimeout(() => setSearch(text), 1000)
         }
     }
 
-
     const searchUser = async (text) => {
         if (text.length > 2 && typeof text === 'string') {
-            const responseData = await fetch(`https://api.github.com/search/users?q=${text}`)
+            const responseData = await fetch(`https://api.github.com/search/users?q=${text}&per_page=10`)
                 .then(response => response.json())
 
             const githubUsers = responseData.items.map((githubUser) => {
                 return { value: githubUser.login, label: githubUser.login }
             })
-            
+
             setListUsers(githubUsers)
         } else {
             setListUsers([])
@@ -48,7 +49,6 @@ function App() {
     useEffect(() => {
         searchUser(search)
     }, [search])
-
 
     return (
         <div className="App">
