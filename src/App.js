@@ -27,7 +27,7 @@ function App() {
         if (typeof text === 'string' && text.length > 2) {
             setIsloadingSelect(true)
             if ( timeout )  clearTimeout(timeout);
-            timeout = setTimeout(() => setSearch(text), 1000)
+            timeout = setTimeout(() => setSearch(text), 1500)
         }
     }
 
@@ -67,6 +67,7 @@ function App() {
                     isLoading={isloadingSelect}
                     loadingMessage={() => null}
                     onChange={(e) => getUser(e.value)}
+                    className="search-select"
                 />
             </div>
             <div className="card">
