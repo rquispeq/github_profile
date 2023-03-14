@@ -14,8 +14,8 @@ function App() {
     const [isloadingSelect, setIsloadingSelect] = useState(false);
     let timeout = 0;
 
-    const getUser = async () => {
-        const data = await fetch('https://api.github.com/users/rquispeq')
+    const getUser = async (username) => {
+        const data = await fetch('https://api.github.com/users/' + username)
             .then(response => response.json());
         setUser(data)
     }
@@ -45,7 +45,7 @@ function App() {
     }
 
     useEffect(() => {
-        getUser();
+        getUser('rquispeq');
     }, [])
 
     useEffect(() => {
@@ -66,6 +66,7 @@ function App() {
                     styles={{ cursor : 'text' }}
                     isLoading={isloadingSelect}
                     loadingMessage={() => null}
+                    onChange={(e) => getUser(e.value)}
                 />
             </div>
             <div className="card">
