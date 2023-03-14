@@ -3,7 +3,7 @@ import { BsTwitter } from 'react-icons/bs'
 import { RiGitRepositoryFill } from 'react-icons/ri'
 import { MdPeopleAlt } from 'react-icons/md'
 import { Bars } from 'react-loader-spinner'
-import Select, { components, DropdownIndicatorProps } from 'react-select'
+import Select from 'react-select'
 import './App.css'
 
 function App() {
