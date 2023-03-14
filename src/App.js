@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { BsTwitter } from 'react-icons/bs'
 import { RiGitRepositoryFill } from 'react-icons/ri'
 import { MdPeopleAlt } from 'react-icons/md'
-import { FaSearch } from 'react-icons/fa'
 import { Bars } from 'react-loader-spinner'
 import Select, { components, DropdownIndicatorProps } from 'react-select'
 import './App.css'
@@ -12,6 +11,7 @@ function App() {
     const [user, setUser] = useState({});
     const [listUsers, setListUsers] = useState([]);
     const [search, setSearch] = useState('');
+    const [isloadingSelect, setIsloadingSelect] = useState(false);
     let timeout = 0;
 
     const getUser = async () => {
@@ -21,25 +21,27 @@ function App() {
     }
 
     const handleSearch = (text) => {
+        if ( text.length < 3 ) {
+            setListUsers([])
+        }
         if (typeof text === 'string' && text.length > 2) {
+            setIsloadingSelect(true)
             if ( timeout )  clearTimeout(timeout);
             timeout = setTimeout(() => setSearch(text), 1000)
         }
     }
 
     const searchUser = async (text) => {
-        if (text.length > 2 && typeof text === 'string') {
-            const responseData = await fetch(`https://api.github.com/search/users?q=${text}&per_page=10`)
-                .then(response => response.json())
+        const responseData = await fetch(`https://api.github.com/search/users?q=${text}&per_page=10`)
+            .then(response => response.json())
 
-            const githubUsers = responseData.items.map((githubUser) => {
-                return { value: githubUser.login, label: githubUser.login }
-            })
+        setIsloadingSelect(false)
 
-            setListUsers(githubUsers)
-        } else {
-            setListUsers([])
-        }
+        const githubUsers = responseData.items.map((githubUser) => {
+            return { value: githubUser.login, label: githubUser.login }
+        })
+
+        setListUsers(githubUsers)
     }
 
     useEffect(() => {
@@ -47,7 +49,9 @@ function App() {
     }, [])
 
     useEffect(() => {
-        searchUser(search)
+        if (search !== '') {
+            searchUser(search)
+        }
     }, [search])
 
     return (
@@ -57,6 +61,11 @@ function App() {
                     onInputChange={(e) => handleSearch(e)}
                     options={listUsers}
                     placeholder="Buscar usuario"
+                    noOptionsMessage={() => listUsers.length > 0 ? 'No hay resultados' : null}
+                    onMenuClose={() => setSearch('')}
+                    styles={{ cursor : 'text' }}
+                    isLoading={isloadingSelect}
+                    loadingMessage={() => null}
                 />
             </div>
             <div className="card">
